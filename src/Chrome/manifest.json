@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "(Open Source) Country Flag & Website Info - Real IP Info",
+  "name": "(Open Source) Country Flag & Website Info",
   "short_name": "Real IP Info",
   "description": "Real IP Info display country flag and full website information. Powered by https://RealIP.Info",
   "version": "3.0",
