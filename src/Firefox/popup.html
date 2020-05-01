@@ -1,0 +1,227 @@
+﻿<!doctype html>
+<html>
+<head>
+    <title>Real IP Info - Firefox Extension</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/animate.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body style="width: 500px;min-height: 400px">
+    <div class="wrapper">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid top-nav">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="https://Realip.info/">
+                        <div>Real IP Info</div>
+                        <span id="ver"></span>
+                    </a>
+                </div>
+                <div id="navbar" class="navbar-collapse">
+                    <div class="navbar-form navbar-left" style="border: none">
+                        <input type="text" class="form-control" placeholder="IP / Domain lookup" name="host" id="txtIpAddress">
+                        <input type="button" style="display: none" id="openHost"  />
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row m-t-sm">
+                    <div class="col-md-12">
+                        <div class="panel" id="panlIpInfo">
+                            <div class="loader">
+                                <div class="loader-bar"></div>
+                            </div>
+                            <div class="panel-body" id="p1">
+                                <div class="col-md-6" id="p2">
+                                    <div class="panel panel-filled" id="panlIpInfo2">
+                                        <div class="panel-body">
+                                            <table class="table table-hover table-striped" id="IpInfo">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">IP Address</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblIp"></span>
+                                                            <div class="Popup Ip Domain" data-obj="lblReverse"></div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">Reverse</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblReverse"></span>
+                                                            <div class="Popup Ip Domain" data-obj="lblReverse"></div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">Net Range</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblNetRange"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">Net Name</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblNetName"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">Description</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblDescription"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">Country</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblCountryName"></span>
+                                                            <img src="~/images/none.png" alt="Country" id="imgCountryFlag" style="width: 16px; height: 11px" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">Country Code</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblCountryCode"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">Region</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblRegionName"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">Region Code</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblRegionCode"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">City</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblCity"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">Zip Code</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblZipCode"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">Latitude</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblLatitude"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">Longitude</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblLongitude"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">Time Zone</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblTimeZone"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">ISP</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblIsp"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">Organization</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblOrganization"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="tdTitle">
+                                                            <strong class="c-white">AS number/name</strong>
+                                                        </td>
+                                                        <td>
+                                                            <span id="lblAsNumberName"></span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="tabs-container" id="tabContacts"></div>
+                                    </div>
+                                    <div class="row">
+                                        <div id="serverMap"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <nav class="navbar-bottom-default navbar-fixed-bottom">
+            <div class="panel panel-filled panel-c-accent">
+                <div class="panel-body">
+                    <ul class="nav luna-nav">
+                        <li><a href="https://realip.info" title="">What Is My IP</a></li>
+                        <li><a href="https://realip.info/service/lookup/">Address Lookup&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+                        <li><a href="https://realip.info/service/portsservice/">Open Port Service</a></li>
+                        <li><a href="https://realip.info/service/whois/">Whois Lookup</a></li>
+                        <li><a href="https://realip.info/domain/ssl/">SSL Certificate Info</a></li>
+                        <li><a href="https://realip.info/tools/passwordgenerator/">Password Generator</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/d3.min.js"></script>
+    <script src="js/topojson.js"></script>
+    <script src="js/datamaps.all.js"></script>
+    <script src="js/luna.js"></script>
+    <script src="js/popup.js"></script>
+</body>
+
+</html>
