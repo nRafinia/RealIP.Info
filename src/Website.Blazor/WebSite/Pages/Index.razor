@@ -1,0 +1,348 @@
+﻿@page "/"
+@page "/ip/my"
+
+@using Business.Models.IP
+@using Business.Services.IP
+@using WebSite.Models
+
+@inject IPLogic _ipLogic
+@inject IJSRuntime _jsRuntime
+@inject HttpClient _http
+
+<PageTitle>@_title - Real IP Info</PageTitle>
+
+<LayoutSetter>
+    <Header>
+        <meta name="description" content="@_description" />
+        <meta property="og:url" content="https://realip.info" />
+        <meta property="og:title" content="@_title - Real IP Info " />
+        <meta property="og:description" content="@_description" />
+        <meta name="twitter:title" content="@_title - Real IP Info " />
+        <meta name="twitter:text:description" content="@_description" />
+        <meta name="twitter:description" content="@_description" />
+    </Header>
+    <PageHeader>
+        <div class="header-icon">
+            @*<i class="pe page-header-icon pe-7s-compass"></i>*@
+            <img src="/images/logo60.png" style="width: 60px; height: 60px" alt="Real IP Info" />
+        </div>
+        <div class="header-title">
+            <h1 class="m-b-xs">What Is My <span class="c-accent">IP</span></h1>
+            <small>
+                This is the public and private <span class="c-accent">IP</span> address of your computer. If your computer is behind a router, proxy server or VPN connection to view this page, the <span class="c-accent">IP</span> address shown is your router or proxy server.
+            </small>
+        </div>
+    </PageHeader>
+    <Footer>
+    </Footer>
+</LayoutSetter>
+
+<div class="row">
+    <div class="col-lg-6 col-xs-12">
+        <div class="panel panel-filled">
+            <div class="panel-body">
+                <h2>
+                    Public <span class="c-accent">IP</span><span>&nbsp;&nbsp;</span> <i class="fa fa-info-circle c-accent" data-toggle="tooltip" title="Public IP address is issued by your ISP, proxy server or VPN connection"></i>
+                    <i class="fa fa-clone c-accent copy-to-clipboard" data-obj="lblPublicIP" data-toggle="tooltip" title="Copy to clipboard"></i>
+                </h2>
+                <h3>
+                    <span id="lblPublicIP">@(_ip?.Ip)</span>
+                    <span class="Popup Ip" data-obj="lblPublicIP"></span>
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row m-t-sm">
+    <div class="col-md-12">
+        <div class="panel" id="panlIpInfo">
+            <div class="loader">
+                <div class="loader-bar"></div>
+            </div>
+            <div class="panel-body" id="p1">
+                <div class="col-md-6" id="p2">
+                    <div class="panel panel-filled" id="panlIpInfo2">
+                        <div class="panel-body">
+                            <table class="table table-hover table-striped" id="IpInfo">
+                                <tbody>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Operation System</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblOS">@(_client?.Os+" "+_client?.OsVersion)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Browser</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblBrowser">@($"{_client?.Browser} {_client?.BrowserMajorVersion} ({_client?.BrowserVersion})")</span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Range Info</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblNetRange">@*@(Model?.RangeInfo.ToString())*@</span>
+
+                                            <span class="Popup dropdown">
+                                                <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button">
+                                                    <i class="fa fa-info-circle c-accent"></i>
+                                                </a>
+                                                <ul class="dropdown-menu list-unstyled text-nowrap">
+                                                    <li>
+                                                        &nbsp;
+                                                        <span><strong>Network :</strong> @*@(Model?.RangeInfo.Network)*@ </span>
+                                                        &nbsp;
+                                                    </li>
+                                                    <li>
+                                                        &nbsp;
+                                                        <span><strong>Netmask :</strong> @*@(Model?.RangeInfo.Netmask)*@ </span>
+                                                        &nbsp;
+                                                    </li>
+                                                    <li>
+                                                        &nbsp;
+                                                        <span><strong>Broadcast :</strong> @*@(Model?.RangeInfo.Broadcast)*@ </span>
+                                                        &nbsp;
+                                                    </li>
+                                                    <li>
+                                                        &nbsp;
+                                                        <span><strong>First Usable :</strong> @*@(Model?.RangeInfo.FirstUsable)*@ </span>
+                                                        &nbsp;
+                                                    </li>
+                                                    <li>
+                                                        &nbsp;
+                                                        <span><strong>Last Usable :</strong> @*@(Model?.RangeInfo.LastUsable)*@ </span>
+                                                        &nbsp;
+                                                    </li>
+                                                    <li>
+                                                        &nbsp;
+                                                        <span><strong>Usable :</strong> @*@(Model?.RangeInfo.Usable)*@ </span>
+                                                        &nbsp;
+                                                    </li>
+                                                </ul>
+                                            </span>
+
+                                            <i class="fa fa-clone c-accent copy-to-clipboard" data-obj="lblNetRange" data-toggle="tooltip" title="Copy to clipboard"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Net Name</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblNetName">@*@(Model?.NetName)*@</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Description</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblDescription">@*@(Model?.Description)*@</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Country Name</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblCountryName">@(_ip?.CountryName)</span>
+                                            <img src="/images/flags/@(_ip?.CountryCodeIso3).png" alt="Country" id="imgCountryFlag" style="width: 16px; height: 11px" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Country Code</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblCountryCode">@(_ip?.CountryCode)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Region Name</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblRegionName">@(_ip?.Region)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Region Code</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblRegionCode">@(_ip?.RegionCode)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">City</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblCity">@(_ip?.City)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Zip Code</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblZipCode">@(_ip?.Postal)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Latitude</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblLatitude">@(_ip?.Latitude)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Longitude</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblLongitude">@(_ip?.Longitude)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Time Zone</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblTimeZone">@(_ip?.Timezone)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Isp</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblIsp">@*@(Model?.Isp)*@</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">Organization</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblOrganization">@(_ip?.Org)</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tdTitle">
+                                            <strong class="c-white">AS Number</strong>
+                                        </td>
+                                        <td>
+                                            <span id="lblAsNumberName">@(_ip?.Asn)</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+               <div class="col-md-6">
+                     @*<div class="row">
+
+                        <div class="tabs-container" id="tabContacts">
+                            @if ((Model.ContactInfos?.Count ?? 0) > 0)
+                            {
+                                <h4><i class='per pe-7s-id text-accent'></i> Contact Points</h4>
+
+                                <ul class="nav nav-tabs">
+                                    @for (var i = 0; i < Model.ContactInfos.Count; i++)
+                                    {
+                                        <li class="@(i == 0 ? "active" : "")">
+                                            <a data-toggle="tab" href="#tab-@(i + 1)" aria-expanded="true">Contact @(i + 1)</a>
+                                        </li>
+                                    }
+
+                                </ul>
+                                <div class="tab-content">
+                                    @for (var i = 0; i < Model.ContactInfos.Count; i++)
+                                    {
+                                        <div class="tab-pane @(i == 0 ? "active" : "")" id="tab-@(i + 1)">
+                                            <div class="panel-body">
+                                                <table class="table table-hover table-striped">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="tdTitle">
+                                                                <strong class="c-white">Name</strong>
+                                                            </td>
+                                                            <td>
+                                                                <span> @Model.ContactInfos[i].Name</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="tdTitle">
+                                                                <strong class="c-white">Address</strong>
+                                                            </td>
+                                                            <td>
+                                                                <span> @Model.ContactInfos[i].Address</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="tdTitle">
+                                                                <strong class="c-white">PhoneNumber</strong>
+                                                            </td>
+                                                            <td>
+                                                                <span> @Model.ContactInfos[i].PhoneNumber</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="tdTitle">
+                                                                <strong class="c-white">EMail</strong>
+                                                            </td>
+                                                            <td>
+                                                                <span> @Model.ContactInfos[i].EMail</span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                            }
+                        </div>
+                    </div>*@
+                    <div class="row">
+                        <div id="serverMap"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@code {
+    private string _title = "What Is My IP";
+    private string _description = "Free online network tools. including what is my ip, Private IP Address, ping, traceroute, whois, Dns lookup, IP Calculator, IP & Domain information and more. Works with IPv4 and IPv6.";
+
+    private GetIPResponse _ip;
+    private ClientDetectionModel _client;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        _ip = await _ipLogic.GetIpInfo("");
+        _client =await _jsRuntime.InvokeAsync<ClientDetectionModel>("GetClientDetection");
+
+        //var r=await _http.GetStringAsync("https://rdap.arin.net/registry/ip/8.8.4.4");
+        //https://whoiz.herokuapp.com/lookup?url=8.8.8.8
+        await _jsRuntime.InvokeVoidAsync("InitMap", _ip.CountryCodeIso3);
+    }
+
+
+}

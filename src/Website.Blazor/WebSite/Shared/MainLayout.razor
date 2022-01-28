@@ -1,0 +1,64 @@
+﻿@inherits LayoutComponentBase
+
+<CascadingValue Value="this">
+    <HeadContent>
+        @_header
+    </HeadContent>
+    
+    @*-- Wrapper--*@
+    <div class="wrapper">
+        @*-- Header--*@
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <NavHeader/>
+        </nav>
+        @*-- End header--*@
+        @*-- Navigation--*@
+        <aside class="navigation navigation-noamp">
+            <NavMenu/>
+        </aside>
+        @*-- End navigation--*@
+
+        @*-- Main content--*@
+        <section class="content">
+            <div class="container-fluid op">
+                
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="view-header">
+                            @_pageHeader
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+
+                @Body
+                @_footer
+            </div>
+        </section>
+        @*-- End main content--*@
+    </div>
+    @*-- End wrapper--*@
+</CascadingValue>
+
+@code {
+
+    private RenderFragment _header;
+    private RenderFragment _pageHeader;
+    private RenderFragment _footer;
+
+    //private string _domain = $"{Context.Request.Scheme}://{Context.Request.Host}";
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        //Title = "Alaki 2";
+    }
+
+    public void SetHeaderAndFooter(RenderFragment header, RenderFragment pageHeader, RenderFragment footer)
+    {
+        _header = header;
+        _pageHeader = pageHeader;
+        _footer = footer;
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "outputFileName": "wwwroot/css/pe-helper.min.css",
+    "inputFiles": [
+      "wwwroot/css/pe-helper.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/pe-icon-7-stroke.min.css",
+    "inputFiles": [
+      "wwwroot/css/pe-icon-7-stroke.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/stroke-style.min.css",
+    "inputFiles": [
+      "wwwroot/css/stroke-style.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/style.min.css",
+    "inputFiles": [
+      "wwwroot/css/style.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/globals.min.js",
+    "inputFiles": [
+      "wwwroot/js/globals.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/luna.min.js",
+    "inputFiles": [
+      "wwwroot/js/luna.js"
+    ]
+  }
+]

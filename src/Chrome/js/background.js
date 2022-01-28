@@ -8,6 +8,7 @@ chrome.tabs.onUpdated.addListener(function (b, a, c) {
         tabdata[b].cur_title = c.title;
     }
 });
+
 chrome.tabs.onActivated.addListener(function (a) {
     chrome.tabs.get(a.tabId,
         function (b) {

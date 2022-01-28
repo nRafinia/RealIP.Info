@@ -4,7 +4,7 @@
   "name": "(Open Source) Country Flag & Website Info",
   "short_name": "Real IP Info",
   "description": "Real IP Info display country flag and full website information. Powered by https://RealIP.Info",
-  "version": "3.1",
+  "version": "3.2",
   "homepage_url": "https://Realip.info",
   "icons": {
     "128": "images/icon_128.png"
@@ -22,7 +22,7 @@
 
   "permissions": [
     "activeTab",
-    "tabs",
+	  "tabs",
     "https://Realip.info/*"
   ],
 
