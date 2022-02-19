@@ -51,7 +51,7 @@
             },
             "Refit": {
               "target": "Package",
-              "version": "[6.2.16, )"
+              "version": "[6.3.2, )"
             }
           },
           "imports": [
@@ -69,7 +69,12 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "browser-wasm": {
+          "#import": []
         }
       }
     }

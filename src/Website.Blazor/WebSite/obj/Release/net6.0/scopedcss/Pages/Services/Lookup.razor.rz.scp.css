@@ -1,0 +1,10 @@
+#p1[b-pigjel4idk], #p2[b-pigjel4idk] {
+    padding-left: 0;
+    padding-right: 5px;
+}
+
+td.tdTitle[b-pigjel4idk] {
+    white-space: nowrap;
+    width: 1%;
+    padding-right: 20px;
+}

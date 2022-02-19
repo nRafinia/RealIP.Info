@@ -1,6 +1,5 @@
 D:\Projects\Github\nRafinia\RealIPInfo\src\Website.Blazor\Business\bin\Debug\net6.0\Business.deps.json
 D:\Projects\Github\nRafinia\RealIPInfo\src\Website.Blazor\Business\bin\Debug\net6.0\Business.dll
-D:\Projects\Github\nRafinia\RealIPInfo\src\Website.Blazor\Business\bin\Debug\net6.0\ref\Business.dll
 D:\Projects\Github\nRafinia\RealIPInfo\src\Website.Blazor\Business\bin\Debug\net6.0\Business.pdb
 D:\Projects\Github\nRafinia\RealIPInfo\src\Website.Blazor\Business\obj\Debug\net6.0\Business.csproj.AssemblyReference.cache
 D:\Projects\Github\nRafinia\RealIPInfo\src\Website.Blazor\Business\obj\Debug\net6.0\Business.GeneratedMSBuildEditorConfig.editorconfig
@@ -10,3 +9,4 @@ D:\Projects\Github\nRafinia\RealIPInfo\src\Website.Blazor\Business\obj\Debug\net
 D:\Projects\Github\nRafinia\RealIPInfo\src\Website.Blazor\Business\obj\Debug\net6.0\Business.dll
 D:\Projects\Github\nRafinia\RealIPInfo\src\Website.Blazor\Business\obj\Debug\net6.0\ref\Business.dll
 D:\Projects\Github\nRafinia\RealIPInfo\src\Website.Blazor\Business\obj\Debug\net6.0\Business.pdb
+D:\Projects\Github\nRafinia\RealIPInfo\src\Website.Blazor\Business\obj\Debug\net6.0\refint\Business.dll

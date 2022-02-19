@@ -1,0 +1,11 @@
+-Oz
+-s DISABLE_EXCEPTION_CATCHING=0
+-v
+-DLINK_ICALLS=1
+-DCORE_BINDINGS
+-DGEN_PINVOKE=1
+-emit-llvm
+"-ID:\Projects\Github\nRafinia\RealIPInfo\src\Website.Blazor\WebSite\obj\Release\net6.0\wasm\for-publish"
+"-IC:\Program Files\dotnet\packs\Microsoft.NETCore.App.Runtime.Mono.browser-wasm\6.0.2-mauipre.1.22102.15\runtimes\browser-wasm\native\include\mono-2.0"
+"-IC:\Program Files\dotnet\packs\Microsoft.NETCore.App.Runtime.Mono.browser-wasm\6.0.2-mauipre.1.22102.15\runtimes\browser-wasm\native\include\wasm"
+-g
