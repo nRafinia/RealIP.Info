@@ -929,6 +929,8 @@ function showAddToHomeScreen() {
 
 var worldmap;
 function InitMap(code) {
+    $("#serverMap").empty();
+
     worldmap = new Datamap({
         element: document.getElementById("serverMap"),
         fills: {

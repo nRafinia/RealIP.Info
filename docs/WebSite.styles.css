@@ -13,6 +13,17 @@
 h2[b-9m6japmenp] {
     font-size: 18px;
 }
+/* /Pages/Services/Lookup.razor.rz.scp.css */
+#p1[b-pigjel4idk], #p2[b-pigjel4idk] {
+    padding-left: 0;
+    padding-right: 5px;
+}
+
+td.tdTitle[b-pigjel4idk] {
+    white-space: nowrap;
+    width: 1%;
+    padding-right: 20px;
+}
 /* /Shared/NavMenu.razor.rz.scp.css */
 .navbar-toggler[b-f2503g6i4z] {
     background-color: rgba(255, 255, 255, 0.1);
