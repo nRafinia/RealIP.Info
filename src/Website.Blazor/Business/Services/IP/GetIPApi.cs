@@ -19,7 +19,7 @@ public class GetIPApi
         {
             try
             {
-                return _ipApiService.GetIpApi(request.Ip);
+                return _ipApiService.GetIpApi(request.Ip, DateTime.Now.Ticks);
             }
             catch
             {

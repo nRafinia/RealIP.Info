@@ -12,4 +12,8 @@
 		<PackageReference Include="Refit" Version="6.2.16" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Services\Dns\" />
+	</ItemGroup>
+
 </Project>

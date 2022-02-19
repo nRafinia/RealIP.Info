@@ -1,7 +1,20 @@
 ﻿@inherits LayoutComponentBase
 
+@inject NavigationManager _navigation
+
 <CascadingValue Value="this">
+    <PageTitle>@Title - Real IP Info</PageTitle>
     <HeadContent>
+        <meta name="description" content="@Description" />
+        <meta property="og:url" content="@_navigation.Uri" />
+        <meta property="og:title" content="@Title - Real IP Info " />
+        <meta property="og:description" content="@Description" />
+        <meta name="twitter:title" content="@Title - Real IP Info " />
+        <meta name="twitter:text:description" content="@Description" />
+        <meta name="twitter:description" content="@Description" />
+        <meta itemprop="name" content="@Title - Real IP Info">
+        <meta itemprop="description" content="@Description">
+
         @_header
     </HeadContent>
     
@@ -25,6 +38,16 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="view-header">
+                            <div class="header-icon">
+                                @PageLogo
+                            </div>
+                            <div class="header-title">
+                                <h1 class="m-b-xs">@PageTitle</h1>
+                                <small>
+                                    @PageDescription
+                                </small>
+                            </div>
+
                             @_pageHeader
                         </div>
                         <hr>
@@ -41,18 +64,18 @@
 </CascadingValue>
 
 @code {
+    public string Title { get; set; }
+    public string Description { get; set; }
 
+    public RenderFragment PageLogo;
+    public RenderFragment PageTitle;
+    public RenderFragment PageDescription;
+    
     private RenderFragment _header;
     private RenderFragment _pageHeader;
     private RenderFragment _footer;
 
     //private string _domain = $"{Context.Request.Scheme}://{Context.Request.Host}";
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        //Title = "Alaki 2";
-    }
 
     public void SetHeaderAndFooter(RenderFragment header, RenderFragment pageHeader, RenderFragment footer)
     {
@@ -61,4 +84,6 @@
         _footer = footer;
         StateHasChanged();
     }
+
+
 }

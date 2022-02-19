@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using WebSite.Shared;
 
-namespace WebSite.wwwroot.Tools;
+namespace WebSite.Tools;
 
 public class LayoutSetter : ComponentBase
 {

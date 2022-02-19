@@ -1,4 +1,5 @@
 using Business.Providers;
+using Business.Services.Dns;
 using Business.Services.IP;
 using MediatR;
 using Microsoft.AspNetCore.Components.Web;
@@ -16,11 +17,25 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddMediatR(typeof(IIpApiService));
 
 //Refit
+builder.Services.AddTransient<RequestHeaderHandler>();
 builder.Services
     .AddRefitClient<IIpApiService>()
-    .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://ipapi.co"));
+    .ConfigureHttpClient(c =>
+    {
+        c.BaseAddress = new Uri("https://ipapi.co");
+    })
+    .AddHttpMessageHandler<RequestHeaderHandler>();
+
+builder.Services
+    .AddRefitClient<IDnsResolverService>()
+    .ConfigureHttpClient(c =>
+    {
+        c.BaseAddress = new Uri("https://dns.google/");
+    })
+    .AddHttpMessageHandler<RequestHeaderHandler>();
 
 //Services
+builder.Services.AddSingleton<AddressUtility>();
 builder.Services.AddScoped<IPLogic>();
 
 //Mapster

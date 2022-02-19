@@ -1,63 +1,73 @@
-﻿    @*-- Header--*@
+﻿@using WebSite.Models
+@*-- Header--*@
 
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <div id="mobile-menu">
-                <div class="left-nav-toggle">
-                    <a href="#">
-                        <i class="stroke-hamburgermenu"></i>
-                    </a>
-                </div>
-            </div>
-            <a class="navbar-brand" href="" title="">
-                <div>Real IP Info</div>
-                @*<span>v.1.2</span>*@
-            </a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
+@inject NavigationManager _navigation
+
+<div class="container-fluid">
+    <div class="navbar-header">
+        <div id="mobile-menu">
             <div class="left-nav-toggle">
-                <a href="/" title="">
+                <a href="#">
                     <i class="stroke-hamburgermenu"></i>
                 </a>
             </div>
-            <form method="get" action="service/lookup" class="navbar-form navbar-left">
-                <input type="text" class="form-control" placeholder="IP / Domain lookup" id="host" name="host">
-                <input type="submit" style="display: none" />
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                @*<li class="dropdown">
-                    <a href="" id="topBetaText" title="">
-                    Under <span class="c-accent">Construction</span>
-                    </a>
-                    </li>
-                    <li class=" profil-link">
-                    <a href="" title="">
-                    <span class="profile-address">Profile is Coming</span>
-                    <@(IsAMP ? "amp-" : "")img src="images/profile.jpg" class="img-circle" alt="">
-                    <i class="pe pe-7s-user avatar c-accent"></i>
-                    </a>
-                    </li>*@
-                <li class="dropdown">
-                    @if (true)@*switch (BrowserDetector.Browser.Name.ToLower())*@
+        </div>
+        <a class="navbar-brand" href="" title="">
+            <div>Real IP Info</div>
+            @*<span>v.1.2</span>*@
+        </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+        <div class="left-nav-toggle">
+            <a href="/" title="">
+                <i class="stroke-hamburgermenu"></i>
+            </a>
+        </div>
+        <EditForm Model="_searchModel" OnValidSubmit="SearchSubmit" class="navbar-form navbar-left" autocomplete="off">
+            <input type="text" @bind="_searchModel.Address" class="form-control" placeholder="IP / Domain lookup" id="host" name="ip">
+            <input type="submit" style="display: none" />
+        </EditForm>
+        <ul class="nav navbar-nav navbar-right">
+            @*<li class="dropdown">
+                <a href="" id="topBetaText" title="">
+                Under <span class="c-accent">Construction</span>
+                </a>
+                </li>
+                <li class=" profil-link">
+                <a href="" title="">
+                <span class="profile-address">Profile is Coming</span>
+                <@(IsAMP ? "amp-" : "")img src="images/profile.jpg" class="img-circle" alt="">
+                <i class="pe pe-7s-user avatar c-accent"></i>
+                </a>
+                </li>*@
+            <li class="dropdown">
+                @*@if (true)@*switch (BrowserDetector.Browser.Name.ToLower())
                     {
-                        @*case "chrome":*@
-                        <a href="http://bit.ly/RealipChrome" id="downChrome" title="Download Chrome Extension" target="_blank" style="padding: 0">
-                            <img src="/images/Chrome.png" style="margin-right: 10px;" alt="Chrome" />
-                        </a>
-                        @*break;*@
-                        /*case "firefox":
+                    case "chrome":
+                    <a href="http://bit.ly/RealipChrome" id="downChrome" title="Download Chrome Extension" target="_blank" style="padding: 0">
+                    <img src="/images/Chrome.png" style="margin-right: 10px;" alt="Chrome" />
+                    </a>
+                    break;
+                    case "firefox":
                     <a href="http://bit.ly/RealipFirefox" id="downFirefox" title="Download Firefox Add-On" target="_blank" style="padding: 0">
                     <img src="/images/Firefox.png" style="margin-right: 10px;" alt="Firefox" />
                     </a>
-                    break;*/
-                    }
-                </li>
-            </ul>
-        </div>
+                    break;
+                    }*@
+            </li>
+        </ul>
     </div>
+</div>
 
 @*-- End header--*@
 
 @code {
+    private readonly SearchByAddressModel _searchModel = new();
+
+    private Task SearchSubmit()
+    {
+        _navigation.NavigateTo($"service/lookup?ip={_searchModel.Address}");
+        return Task.CompletedTask;
+    }
 
 }

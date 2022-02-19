@@ -1,13 +1,15 @@
-﻿@page "/"
-@page "/ip/my"
+﻿@page "/ip"
+@page "/service/lookup"
 
 @using Business.Models.IP
 @using Business.Services.IP
+@using WebSite.Extensions
 @using WebSite.Models
+@using System.Net
 
 @inject IPLogic _ipLogic
 @inject IJSRuntime _jsRuntime
-@inject HttpClient _http
+@inject NavigationManager _navigation
 
 <LayoutSetter>
     <PageHeader>
@@ -17,22 +19,25 @@
 </LayoutSetter>
 
 <div class="row">
-    <div class="col-lg-6 col-xs-12">
-        <div class="panel panel-filled">
+    <div class="col-md-3">
+        <div class="panel panel-filled panel-c-accent">
             <div class="panel-body">
-                <h2>
-                    Public <span class="c-accent">IP</span><span>&nbsp;&nbsp;</span> <i class="fa fa-info-circle c-accent" data-toggle="tooltip" title="Public IP address is issued by your ISP, proxy server or VPN connection"></i>
-                    <i class="fa fa-clone c-accent copy-to-clipboard" data-obj="lblPublicIP" data-toggle="tooltip" title="Copy to clipboard"></i>
-                </h2>
-                <h3>
-                    <span id="lblPublicIP">@(_ip?.Ip??"Loading...")</span>
-                    <span class="Popup Ip" data-obj="lblPublicIP"></span>
-                </h3>
+                @*@using (Html.BeginForm(method: FormMethod.Get, htmlAttributes: new { autocomplete = "off" }))*@
+                <EditForm Model="_searchModel" OnValidSubmit="SearchSubmit" autocomplete="off">
+                    <div class="form-group">
+                        <label for="txtIpAddress"><span class="c-accent">IP</span> Address / Domain Address</label>
+                        <input type="text" @bind="_searchModel.Address" class="form-control" name="ip" id="txtIpAddress" placeholder="8.8.8.8 / Domain.com">
+                    </div>
+                    <div class="form-group pull-right">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-w-sm btn-accent Popup Ip" data-obj="txtIpAddress">Send</button>
+                        </div>
+                    </div>
+                </EditForm>
             </div>
         </div>
     </div>
 </div>
-
 <div class="row m-t-sm">
     <div class="col-md-12">
         <div class="panel" id="panlIpInfo">
@@ -47,18 +52,10 @@
                                 <tbody>
                                     <tr>
                                         <td class="tdTitle">
-                                            <strong class="c-white">Operation System</strong>
+                                            <strong class="c-white">IP</strong>
                                         </td>
                                         <td>
-                                            <span id="lblOS">@(_client?.Os+" "+_client?.OsVersion)</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="tdTitle">
-                                            <strong class="c-white">Browser</strong>
-                                        </td>
-                                        <td>
-                                            <span id="lblBrowser">@($"{_client?.Browser} {_client?.BrowserMajorVersion} ({_client?.BrowserVersion})")</span>
+                                            <span id="lblOS">@(_ip?.Ip)</span>
                                         </td>
                                     </tr>
 
@@ -228,72 +225,72 @@
                         </div>
                     </div>
                 </div>
-               <div class="col-md-6">
-                     @*<div class="row">
+                <div class="col-md-6">
+                    @*<div class="row">
 
                         <div class="tabs-container" id="tabContacts">
-                            @if ((Model.ContactInfos?.Count ?? 0) > 0)
-                            {
-                                <h4><i class='per pe-7s-id text-accent'></i> Contact Points</h4>
+                        @if ((Model.ContactInfos?.Count ?? 0) > 0)
+                        {
+                        <h4><i class='per pe-7s-id text-accent'></i> Contact Points</h4>
 
-                                <ul class="nav nav-tabs">
-                                    @for (var i = 0; i < Model.ContactInfos.Count; i++)
-                                    {
-                                        <li class="@(i == 0 ? "active" : "")">
-                                            <a data-toggle="tab" href="#tab-@(i + 1)" aria-expanded="true">Contact @(i + 1)</a>
-                                        </li>
-                                    }
+                        <ul class="nav nav-tabs">
+                        @for (var i = 0; i < Model.ContactInfos.Count; i++)
+                        {
+                        <li class="@(i == 0 ? "active" : "")">
+                        <a data-toggle="tab" href="#tab-@(i + 1)" aria-expanded="true">Contact @(i + 1)</a>
+                        </li>
+                        }
 
-                                </ul>
-                                <div class="tab-content">
-                                    @for (var i = 0; i < Model.ContactInfos.Count; i++)
-                                    {
-                                        <div class="tab-pane @(i == 0 ? "active" : "")" id="tab-@(i + 1)">
-                                            <div class="panel-body">
-                                                <table class="table table-hover table-striped">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="tdTitle">
-                                                                <strong class="c-white">Name</strong>
-                                                            </td>
-                                                            <td>
-                                                                <span> @Model.ContactInfos[i].Name</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="tdTitle">
-                                                                <strong class="c-white">Address</strong>
-                                                            </td>
-                                                            <td>
-                                                                <span> @Model.ContactInfos[i].Address</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="tdTitle">
-                                                                <strong class="c-white">PhoneNumber</strong>
-                                                            </td>
-                                                            <td>
-                                                                <span> @Model.ContactInfos[i].PhoneNumber</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="tdTitle">
-                                                                <strong class="c-white">EMail</strong>
-                                                            </td>
-                                                            <td>
-                                                                <span> @Model.ContactInfos[i].EMail</span>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    }
-
-                                </div>
-                            }
+                        </ul>
+                        <div class="tab-content">
+                        @for (var i = 0; i < Model.ContactInfos.Count; i++)
+                        {
+                        <div class="tab-pane @(i == 0 ? "active" : "")" id="tab-@(i + 1)">
+                        <div class="panel-body">
+                        <table class="table table-hover table-striped">
+                        <tbody>
+                        <tr>
+                        <td class="tdTitle">
+                        <strong class="c-white">Name</strong>
+                        </td>
+                        <td>
+                        <span> @Model.ContactInfos[i].Name</span>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td class="tdTitle">
+                        <strong class="c-white">Address</strong>
+                        </td>
+                        <td>
+                        <span> @Model.ContactInfos[i].Address</span>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td class="tdTitle">
+                        <strong class="c-white">PhoneNumber</strong>
+                        </td>
+                        <td>
+                        <span> @Model.ContactInfos[i].PhoneNumber</span>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td class="tdTitle">
+                        <strong class="c-white">EMail</strong>
+                        </td>
+                        <td>
+                        <span> @Model.ContactInfos[i].EMail</span>
+                        </td>
+                        </tr>
+                        </tbody>
+                        </table>
                         </div>
-                    </div>*@
+                        </div>
+                        }
+
+                        </div>
+                        }
+                        </div>
+                        </div>*@
                     <div class="row">
                         <div id="serverMap"></div>
                     </div>
@@ -301,37 +298,48 @@
             </div>
         </div>
     </div>
-
 </div>
-
 
 @code {
     [CascadingParameter]
     public MainLayout Layout { get; set; }
 
+    private readonly SearchByAddressModel _searchModel = new();
+
     private GetIPResponse _ip;
-    private ClientDetectionModel _client;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         SetTitles();
+        _searchModel.Address = _navigation.QueryString("ip");
 
-        _ip = await _ipLogic.GetCurrentIpInfo();
-        _client =await _jsRuntime.InvokeAsync<ClientDetectionModel>("GetClientDetection");
-
-        //var r=await _http.GetStringAsync("https://rdap.arin.net/registry/ip/8.8.4.4");
-        //https://whoiz.herokuapp.com/lookup?url=8.8.8.8
-        await _jsRuntime.InvokeVoidAsync("InitMap", _ip.CountryCodeIso3);
+        if (string.IsNullOrWhiteSpace(_searchModel.Address))
+        {
+            return;
+        }
+        await Search();
     }
 
     private void SetTitles()
     {
-        Layout.Title = "What Is My IP";
-        Layout.Description = "Free online network tools. including what is my ip, Private IP Address, ping, traceroute, whois, Dns lookup, IP Calculator, IP & Domain information and more. Works with IPv4 and IPv6.";;
+        Layout.Title = "Address Lookup";
+        Layout.Description = "The Address Lookup tool. includes the following details: IP Address, Country Name, City, State/Region, Zip Code, Country Code, Time Zone, ISP, Global Map and more";
 
-        Layout.PageLogo = @<img src="/images/logo60.png" style="width: 60px; height: 60px" alt="Real IP Info"/>;
-        Layout.PageTitle = @<text>What Is My <span class="c-accent">IP</span></text>;
-        Layout.PageDescription = @<text>This is the public and private <span class="c-accent">IP</span> address of your computer. If your computer is behind a router, proxy server or VPN connection to view this page, the <span class="c-accent">IP</span> address shown is your router or proxy server.</text>;
+        Layout.PageLogo = @<i class="pe page-header-icon pe-7s-compass"></i>;
+        Layout.PageTitle = @<text>Address Lookup</text>;
+        Layout.PageDescription = @<text>The Address Lookup tool includes the following <span class="c-accent">IP</span> or Domain Address details: <span class="c-accent">IP</span> Address, Country Name, City, State/Region, Zip Code, Country Code, Time Zone, ISP, Global Map and more.</text>;
+    }
+
+    private Task SearchSubmit()
+    {
+        _navigation.NavigateTo($"service/lookup?ip={_searchModel.Address}");
+        return Search();
+    }
+
+    private async Task Search()
+    {
+        _ip = await _ipLogic.GetIpInfo(_searchModel.Address);
+        await _jsRuntime.InvokeVoidAsync("InitMap", _ip.CountryCodeIso3);
     }
 }

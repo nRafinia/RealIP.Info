@@ -7,27 +7,27 @@
 		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 		<BlazorEnableTimeZoneSupport>false</BlazorEnableTimeZoneSupport>
 		<SkipExtraFilesOnServer>false</SkipExtraFilesOnServer>
-		<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+		<!--<GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>-->
+		<BlazorWebAssemblyPreserveCollationData>false</BlazorWebAssemblyPreserveCollationData>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Content Remove="bundleconfig.json" />
-		<Content Remove="wwwroot\Tools\LayoutSetter.cs" />
+	  <Compile Remove="wwwroot\fonts\**" />
+	  <Compile Remove="wwwroot\images\flags\**" />
+	  <Content Remove="wwwroot\fonts\**" />
+	  <Content Remove="wwwroot\images\flags\**" />
+	  <EmbeddedResource Remove="wwwroot\fonts\**" />
+	  <EmbeddedResource Remove="wwwroot\images\flags\**" />
+	  <None Remove="wwwroot\fonts\**" />
+	  <None Remove="wwwroot\images\flags\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Include="wwwroot\Tools\LayoutSetter.cs" />
+		<Content Remove="bundleconfig.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="bundleconfig.json" />
-		<None Include="wwwroot\fonts\fontawesome-webfont.svg" />
-		<None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
-		<None Include="wwwroot\fonts\glyphicons-halflings-regular.eot%40" />
-		<None Include="wwwroot\fonts\glyphicons-halflings-regular.svg" />
-		<None Include="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
-		<None Include="wwwroot\fonts\Pe-icon-7-stroke.svg" />
-		<None Include="wwwroot\fonts\stroke.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -47,7 +47,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Models\" />
+	  <Folder Include="Extensions\" />
 	</ItemGroup>
 
 </Project>
