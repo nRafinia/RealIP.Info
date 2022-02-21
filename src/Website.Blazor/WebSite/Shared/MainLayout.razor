@@ -78,6 +78,16 @@
 
     //private string _domain = $"{Context.Request.Scheme}://{Context.Request.Host}";
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (!firstRender)
+        {
+            return;
+        }
+        await _jsRuntime.InvokeVoidAsync("InitMenu");
+    }
+
     public void SetHeaderAndFooter(RenderFragment header, RenderFragment pageHeader, RenderFragment footer)
     {
         _header = header;

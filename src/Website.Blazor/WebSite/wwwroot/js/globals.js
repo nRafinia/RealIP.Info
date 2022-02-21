@@ -25,7 +25,15 @@ function Load() {
         toastr.info('Copied to clipboard', null, { timeOut: 1000 });
         clearSelection();
     });
+
 //});
+}
+
+function InitMenu() {
+    $(".left-nav-toggle a").on("click", function (n) {
+        n.preventDefault();
+        $("body").toggleClass("nav-toggle");
+    });
 }
 
 //#region Validation Methods
