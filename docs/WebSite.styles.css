@@ -24,6 +24,26 @@ td.tdTitle[b-pigjel4idk] {
     width: 1%;
     padding-right: 20px;
 }
+/* /Pages/Tools/GuidGenerator.razor.rz.scp.css */
+#generatedGuid[b-br1wxhnkic] {
+    background-color: #24262d;
+    width: 100%;
+    height: 30px;
+}
+
+#cp[b-br1wxhnkic] {
+    cursor: pointer;
+}
+/* /Pages/Tools/PasswordGenerator.razor.rz.scp.css */
+#generatedPass[b-kzo9yz4dam] {
+    background-color: #24262d;
+    width: 100%;
+    height: 30px;
+}
+
+#cp[b-kzo9yz4dam] {
+    cursor: pointer;
+}
 /* /Shared/NavMenu.razor.rz.scp.css */
 .navbar-toggler[b-f2503g6i4z] {
     background-color: rgba(255, 255, 255, 0.1);
