@@ -1,0 +1,94 @@
+﻿@page "/tools/GuidGenerator"
+@using Business.Models.Tools
+
+@inject Business.Services.Tools.GuidGenerator _guidGenerator
+
+<LayoutSetter>
+    <PageHeader>
+    </PageHeader>
+    <Footer>
+    </Footer>
+</LayoutSetter>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-filled panel-c-accent" id="pnlGuid">
+            <div class="loader">
+                <div class="loader-bar"></div>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="checkbox checkbox-warning">
+                            <input type="checkbox" @bind="_model.Uppercase" id="Uppercase"/>
+                            <label for="Uppercase">Uppercase</label>
+                        </div>
+                        <div class="checkbox checkbox-warning">
+                            <input type="checkbox" @bind="_model.Braces" id="Braces"/>
+                            <label for="Braces">Braces</label>
+                        </div>
+                        <div class="checkbox checkbox-warning">
+                            <input type="checkbox" @bind="_model.Hyphens" id="Hyphens"/>
+                            <label for="Hyphens">Hyphens</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" class="btn btn-w-sm btn-accent" @onclick="Submit" value="Generate GUID">
+                    </div>
+                    <br />
+
+                    <div class="form-group" id="divGuid">
+                        <label for="generatedGuid">Generated GUID</label> <i class="fa fa-clone c-accent copy-to-clipboard" data-toggle="tooltip" data-obj="generatedGuid" title="Copy to clipboard"></i> <br />
+                        <div class="col-md-12">
+                            <textarea class="c-accent" id="generatedGuid" readonly>@_generatedGuid</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [CascadingParameter]
+    public MainLayout Layout { get; set; }
+
+    readonly GuidGeneratorModel _model = new()
+        {
+            Braces = true,
+            Hyphens = true
+        };
+    string _generatedGuid;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        SetTitles();
+        await Submit();
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        return !firstRender 
+            ? Task.CompletedTask 
+            : Layout.Init();
+    }
+
+    private void SetTitles()
+    {
+        Layout.Title = "GUID (UUID) Generator";
+        Layout.Description = "GUID (or UUID) is an acronym for 'Globally Unique Identifier' (or 'Universally Unique Identifier'). It is a 128-bit integer number used to identify resources. The term GUID is generally used by developers working with Microsoft technologies, while UUID is used everywhere else.";
+
+        Layout.PageLogo = @<i class="pe page-header-icon pe-7s-loop"></i>;
+        Layout.PageTitle = @<text>GUID (UUID) Generator</text>;
+        Layout.PageDescription = @<text>GUID (or UUID) is an acronym for 'Globally Unique Identifier' (or 'Universally Unique Identifier'). It is a 128-bit integer number used to identify resources. The term GUID is generally used by developers working with Microsoft technologies, while UUID is used everywhere else.</text>;
+    }
+
+    private Task Submit()
+    {
+        _generatedGuid = _guidGenerator.Generate(_model);
+        return Task.CompletedTask;
+    }
+}

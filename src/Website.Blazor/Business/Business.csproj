@@ -7,12 +7,14 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Mapster" Version="7.2.0" />
+		<PackageReference Include="Mapster" Version="7.3.0" />
 		<PackageReference Include="MediatR" Version="10.0.1" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Refit" Version="6.3.2" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Models\DI\" />
 	  <Folder Include="Services\Dns\" />
 	</ItemGroup>
 

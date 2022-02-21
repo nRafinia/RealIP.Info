@@ -1,11 +1,12 @@
 ﻿using Business.Extensions;
+using Business.Models.DI;
 using Business.Models.IP;
 using Business.Providers;
 using MediatR;
 
 namespace Business.Services.IP;
 
-public class IPLogic
+public class IPLogic : IScoped
 {
     private readonly IMediator _mediator;
     private readonly AddressUtility _addressUtility;
@@ -23,7 +24,7 @@ public class IPLogic
             return new();
         }
 
-        var address = _addressUtility.NormalizeAndIp(ip);
+        var address = _addressUtility.NormalizeAddress(ip);
         if (!_addressUtility.IsIpAddressValid(ip, out _))
         {
             var ipAddress = await _mediator.Send(new Dns.Resolve.Query(address, RecordType.A));

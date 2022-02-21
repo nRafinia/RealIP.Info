@@ -1,3 +1,4 @@
+using Business.Extensions;
 using Business.Providers;
 using Business.Services.Dns;
 using Business.Services.IP;
@@ -35,8 +36,7 @@ builder.Services
     .AddHttpMessageHandler<RequestHeaderHandler>();
 
 //Services
-builder.Services.AddSingleton<AddressUtility>();
-builder.Services.AddScoped<IPLogic>();
+builder.Services.AutoRegisterAllClass();
 
 //Mapster
 MapperConfig.Run();

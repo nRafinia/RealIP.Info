@@ -26,7 +26,8 @@
                 </h2>
                 <h3>
                     <span id="lblPublicIP">@(_ip?.Ip??"Loading...")</span>
-                    <span class="Popup Ip" data-obj="lblPublicIP"></span>
+                    @*<span class="Popup Ip" data-obj="lblPublicIP"></span>*@
+                    <HostPopup Host="@_ip?.Ip"/>
                 </h3>
             </div>
         </div>
@@ -323,6 +324,13 @@
         //var r=await _http.GetStringAsync("https://rdap.arin.net/registry/ip/8.8.4.4");
         //https://whoiz.herokuapp.com/lookup?url=8.8.8.8
         await _jsRuntime.InvokeVoidAsync("InitMap", _ip.CountryCodeIso3);
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        return !firstRender 
+            ? Task.CompletedTask 
+            : Layout.Init();
     }
 
     private void SetTitles()

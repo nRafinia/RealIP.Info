@@ -1,10 +1,11 @@
-﻿using System.Net;
+﻿using Business.Models.DI;
+using System.Net;
 
 namespace Business.Providers;
 
-public class AddressUtility
+public class AddressUtility : ISingleton
 {
-    public string NormalizeAndIp(string address)
+    public string NormalizeAddress(string address)
     {
         if (string.IsNullOrWhiteSpace(address))
             return address;

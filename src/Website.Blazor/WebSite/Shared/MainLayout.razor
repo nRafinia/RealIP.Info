@@ -1,6 +1,7 @@
 ﻿@inherits LayoutComponentBase
 
 @inject NavigationManager _navigation
+@inject IJSRuntime _jsRuntime
 
 <CascadingValue Value="this">
     <PageTitle>@Title - Real IP Info</PageTitle>
@@ -85,5 +86,9 @@
         StateHasChanged();
     }
 
+    public async Task Init()
+    {
+        await _jsRuntime.InvokeVoidAsync("Load");
+    }
 
 }

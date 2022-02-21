@@ -1,0 +1,40 @@
+﻿@using Business.Providers
+@inject AddressUtility _addressUtility
+
+<span class="dropdown">
+    <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-chevron-circle-down c-accent"></i>
+    </a>
+    <ul class="dropdown-menu">
+        <li>
+            <a href="/service/lookup/?host=@_host">Address Lookup</a>
+        </li>
+        <li>
+            <a href="/service/portsservice/?host=@_host">Open Ports Service</a>
+        </li>
+        <li>
+            <a href="/service/ssl/?host=@_host">SSL &amp; Certificate</a>
+        </li>
+        <li>
+            <a href="/service/whois/?host=@_host">Whois Lookup</a>
+        </li>
+    </ul>
+</span>
+
+@code {
+    [Parameter]
+    public string Host { get; set; }
+
+    private string _host;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (!string.IsNullOrWhiteSpace(Host))
+        {
+            _host = _addressUtility.NormalizeAddress(Host);
+        }
+    }
+
+}
